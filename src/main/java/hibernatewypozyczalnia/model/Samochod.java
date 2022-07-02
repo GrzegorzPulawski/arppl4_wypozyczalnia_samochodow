@@ -1,7 +1,5 @@
 package hibernatewypozyczalnia.model;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -21,8 +21,8 @@ public class Samochod {
     private Long id;
     private String nazwa;
     private String marka;
-    private Date dataprodukcji;
-    private TypNadwozia nadwozie;
+    private LocalDate dataprodukcji;
+    private Enum TypNadwozia;
     private  int iloscpasazerow;
 
 }
