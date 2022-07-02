@@ -18,7 +18,7 @@ public class Samochod {
     private Long id;
     private String nazwa;
     private String marka;
-    private LocalDate dataprodukcji;
+    private LocalDate dataProdukcji;
 
     @Enumerated(EnumType.STRING)
     private TypNadwozia TypNadwozia;
