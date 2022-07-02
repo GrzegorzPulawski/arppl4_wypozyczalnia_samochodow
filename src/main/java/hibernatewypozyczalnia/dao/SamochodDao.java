@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SamochodDao implements  ISamochodDao{
+public class SamochodDao implements ISamochodDao {
     @Override
     public void dodajSamochod(Samochod samochod) {
-        SessionFactory fabrykaPolaczen  = HibernateUtil.INSTANCE.getSessionFactory();
+        SessionFactory fabrykaPolaczen = HibernateUtil.INSTANCE.getSessionFactory();
     }
 
     @Override
@@ -34,7 +34,8 @@ public class SamochodDao implements  ISamochodDao{
         SessionFactory fabrykaPolaczen = HibernateUtil.INSTANCE.getSessionFactory();
         try (Session session = fabrykaPolaczen.openSession()) {
             Samochod obiektSamochod = session.get(Samochod.class, id);
-        return Optional.ofNullable(obiektSamochod);
+            return Optional.ofNullable(obiektSamochod);
+        }
     }
 
     @Override
@@ -43,36 +44,33 @@ public class SamochodDao implements  ISamochodDao{
 
         SessionFactory fabrykaPolaczen = HibernateUtil.INSTANCE.getSessionFactory();
         try (Session session = fabrykaPolaczen.openSession()) {
-                // Tworzymy "zapytanie" do bazy o obiekty typu Samochod
+            // Tworzymy "zapytanie" do bazy o obiekty typu Samochod
             TypedQuery<Samochod> zapytanie = session.createQuery("from Samochod", Samochod.class);
-                List<Samochod> wynikZapytania = zapytanie.getResultList();
+            List<Samochod> wynikZapytania = zapytanie.getResultList();
 
-                samochodLista.addAll(wynikZapytania);
-            } catch (SessionException sessionException) {
-                System.err.println("Błąd wczytywania danych.");
-            }
+            samochodLista.addAll(wynikZapytania);
+        } catch (SessionException sessionException) {
+            System.err.println("Błąd wczytywania danych.");
+        }
 
-            return samochodLista;
-
+        return samochodLista;
     }
 
     @Override
     public void updateSamochod(Samochod samochod) {
-            SessionFactory fabrykaPolaczen = HibernateUtil.INSTANCE.getSessionFactory();
+        SessionFactory fabrykaPolaczen = HibernateUtil.INSTANCE.getSessionFactory();
 
-            Transaction transaction = null;
-            try (Session session = fabrykaPolaczen.openSession()) {
-                transaction = session.beginTransaction();
+        Transaction transaction = null;
+        try (Session session = fabrykaPolaczen.openSession()) {
+            transaction = session.beginTransaction();
 
-                session.persist(samochod);
+            session.persist(samochod);
 
-                transaction.commit();
-            } catch (SessionException sessionException) {
-                if (transaction != null){
-                    transaction.rollback();
-                }
+            transaction.commit();
+        } catch (SessionException sessionException) {
+            if (transaction != null) {
+                transaction.rollback();
             }
         }
-
     }
 }
